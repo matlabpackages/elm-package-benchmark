@@ -1,8 +1,6 @@
 import time
 from use_mixology import VersionSolver, print_solution
-from elm_util import create_package_source, create_full_package_source
-
-# Example
+from elm_util import create_package_source
 from util import read_json
 
 # Elm package graph
@@ -20,24 +18,6 @@ source = create_package_source(g, pkg, ver)
 print('Create source: ', time.process_time() - start, 'seconds')
 
 # Solve
-start = time.process_time()
-solver = VersionSolver(source)
-print('Create solver: ', time.process_time() - start, 'seconds')
-
-start = time.process_time()
-result = solver.solve()
-print('Solving: ', time.process_time() - start, 'seconds')
-print_solution(solver, result)
-
-# Full universe
-start = time.process_time()
-source = create_full_package_source(g)
-print('Create full source: ', time.process_time() - start, 'seconds')
-
-start = time.process_time()
-source.root_dep(pkg, ver)
-print('Add root: ', time.process_time() - start, 'seconds')
-
 start = time.process_time()
 solver = VersionSolver(source)
 print('Create solver: ', time.process_time() - start, 'seconds')
