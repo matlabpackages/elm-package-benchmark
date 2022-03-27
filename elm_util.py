@@ -30,3 +30,11 @@ def create_package_source(g, root_package, root_version):
     source.root_dep(root_package, root_version)
     add_deps(g, source, root_package, [])
     return source
+
+def create_full_package_source(g):
+    # create PackageSource of full universe (without root package)
+    source = PackageSource()
+    for pkg, versions in g.items():
+        for ver, deps in versions.items():
+            source.add(pkg, ver, deps=convert_constraints(deps))
+    return source
