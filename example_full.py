@@ -1,4 +1,3 @@
-import imp
 import time
 from use_mixology import VersionSolver
 from elm_util import create_full_package_source
@@ -26,8 +25,6 @@ for i, pkg in enumerate(packages):
     for ver in g[pkg]:
         source._root_dependencies = []  # reset
         source.root_dep(pkg, ver)
-
-        #start = time.process_time()
         solver = VersionSolver(source)
         try:
             result = solver.solve()
