@@ -7,7 +7,7 @@ import aiohttp
 
 async def main():
     output = './graph.json'
-    folder = 'registry'
+    folder = 'registry/0.19.1'
     package_folder = folder + '/packages'
     packages = get_package_names()
     await download_packages(package_folder, packages)
@@ -43,7 +43,7 @@ async def download_package(folder, client, name):
     url = f'https://package.elm-lang.org/packages/{name}/releases.json'
     if '+' in name:
         raise ValueError('+ in name')
-    folder_name = name.replace('/', '+')
+    folder_name = name
     async with client.request('GET', url) as r:
         try:
             versions = await r.json()
@@ -59,17 +59,16 @@ async def download_package(folder, client, name):
                 except aiohttp.client_exceptions.ContentTypeError:
                     print(f'failed: {name}={version}')
                     ver_data = {"dependencies": {}}  # fallback
-                write_json(f'{folder}/{folder_name}/{version}.json', ver_data, indent=4, sort_keys=True)
+                write_json(f'{folder}/{folder_name}/{version}/elm.json', ver_data, indent=4, sort_keys=True)
         #print(f'downloaded: {name}: {n_ver} versions')
 
 def get_graph_from_folders(folder, packages):
     graph = {}
     for name in packages:
-        folder_name = name.replace('/', '+')
+        folder_name = name
         graph[name] = {}
-        for ver_file in os.listdir(f'{folder}/{folder_name}'):
-            version = ver_file.replace('.json', '')
-            ver_data = read_json(f'{folder}/{folder_name}/{ver_file}')
+        for version in os.listdir(f'{folder}/{folder_name}'):
+            ver_data = read_json(f'{folder}/{folder_name}/{version}/elm.json')
             graph[name][version] = ver_data['dependencies']
     return graph
 
