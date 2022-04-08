@@ -7,6 +7,7 @@ name = "pypi"
 requests = "*"
 aiohttp = "*"
 poetry-semver = "*"
+pyyaml = "*"
 
 [dev-packages]
 
