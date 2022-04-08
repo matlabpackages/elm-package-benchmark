@@ -58,7 +58,18 @@ async def download_package(folder, client, name):
                     ver_data = await r.json()
                 except aiohttp.client_exceptions.ContentTypeError:
                     print(f'failed: {name}={version}')
-                    ver_data = {"dependencies": {}}  # fallback
+                    ver_data = {
+                        "name": name,
+                        "version": version,
+                        "type": "package",
+                        "summary": "",
+                        "license": "MIT",
+                        "source-directories": ["src"],
+                        "exposed-modules": [],
+                        "elm-version": "0.19.1 <= v < 1.0.0",
+                        "dependencies": {},
+                        "test-dependencies": {}
+                    }  # fallback
                 write_json(f'{folder}/{folder_name}/{version}/elm.json', ver_data, indent=4, sort_keys=True)
         #print(f'downloaded: {name}: {n_ver} versions')
 

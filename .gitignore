@@ -3,3 +3,5 @@
 __pycache__/
 registry/
 graph.json
+result.json
+result.yaml
