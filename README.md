@@ -1,5 +1,7 @@
 # elm-package-benchmark
 
+Benchmark different dependency resolver implementations using elm package universe.
+
 This repository contains a benchmark example using the [elm package universe](https://package.elm-lang.org/). It compares different implementations of package resolver algorithms:
 1. PubGrub Rust: [pubgrub-rs](https://github.com/pubgrub-rs/pubgrub)
 2. PubGrub in Python: [mixology](https://github.com/sdispater/mixology)
