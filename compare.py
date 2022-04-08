@@ -7,8 +7,6 @@ out_file = './result_rust.json'
 
 with open(file, 'r') as f:
     data = load(f, Loader=Loader)
-del data['stats']
-del data['failed']
 d = {}
 for k in data:
     d[k.lower()] = data[k]

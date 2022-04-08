@@ -45,10 +45,10 @@ fn main() {
         }
     }
     let tot_dur = tot_start.elapsed();
-    println!("failed: {}", failed);
-    println!("stats:");
-    println!("  solving: {:?}", sol_dur);
-    println!("  total: {:?}", tot_dur);
+    eprintln!("failed: {}", failed);
+    eprintln!("stats:");
+    eprintln!("  solving: {:?}", sol_dur);
+    eprintln!("  total: {:?}", tot_dur);
 }
 
 fn solve(project_elm_json:ProjectConfig, offline_solver:&solver::Offline) -> Result<AppDependencies, PubGrubError<Pkg, SemVer>> {

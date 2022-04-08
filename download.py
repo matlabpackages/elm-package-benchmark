@@ -56,6 +56,9 @@ async def download_package(folder, client, name):
             async with client.request('GET', url) as r:
                 try:
                     ver_data = await r.json()
+                    if not 'v' in ver_data['elm-version']:
+                        # fix format
+                        ver_data['elm-version'] = ver_data['elm-version'] + ' <= v < 10.0.0'
                 except aiohttp.client_exceptions.ContentTypeError:
                     print(f'failed: {name}={version}')
                     ver_data = {

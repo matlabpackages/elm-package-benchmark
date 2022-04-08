@@ -56,10 +56,13 @@ Copy example code:
     ln -s "$PWD/test.rs" elm-solve-deps/elm-solve-deps-lib/examples/test.rs
     cd elm-solve-deps/elm-solve-deps-lib
 
-Compile and run:
+Compile:
 
-    cd elm-solve-deps/elm-solve-deps-lib
-    time cargo run --example test > ../../result.yaml
+    cargo build --release --example test
+
+Run benchmark and write result to file (takes about 4 seconds):
+
+    cargo run --release --example test > ../../result.yaml
     cd -
 
 ## Compare results
