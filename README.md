@@ -22,6 +22,29 @@ Delete temporary files:
 
     bash clean.sh
 
+## Download elm package registry
+
+Download all elm package metadata files into the folder `registry`:
+
+    pipenv run python download.py
+
+This also saves the file `graph.json` which contains the whole dependency graph of all package versions. For missing packages it will be automatically assumed that they have only one version and no dependencies, so ignore the message about failed packages.
+
+## Run PubGrub Python benchmark
+
+First check the simple examples:
+
+    pipenv run python example_simple.py
+    pipenv run python example.py
+
+They should output the found solution.
+
+Now run the benchmark (takes about 45 seconds):
+
+    pipenv run python example_full.py
+
+This puts the result in `result.json` and prints how many package versions failed to resolve.
+
 ## Run PubGrub Rust benchmark
 
 Install Rust and clone repository:
