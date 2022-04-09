@@ -3,7 +3,33 @@
 julia_version = "1.7.1"
 manifest_format = "2.0"
 
+[[deps.Dates]]
+deps = ["Printf"]
+uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
+
+[[deps.JSON]]
+deps = ["Dates", "Mmap", "Parsers", "Unicode"]
+git-tree-sha1 = "3c837543ddb02250ef42f4738347454f95079d4e"
+uuid = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+version = "0.21.3"
+
+[[deps.Mmap]]
+uuid = "a63ad114-7e13-5084-954f-fe012c677804"
+
+[[deps.Parsers]]
+deps = ["Dates"]
+git-tree-sha1 = "621f4f3b4977325b9128d5fae7a8b4829a0c2222"
+uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
+version = "2.2.4"
+
+[[deps.Printf]]
+deps = ["Unicode"]
+uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+
 [[deps.Solver]]
 path = "Solver"
 uuid = "1149c7a7-90b7-453f-a39f-30749f6011d4"
 version = "0.1.0"
+
+[[deps.Unicode]]
+uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
