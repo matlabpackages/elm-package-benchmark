@@ -111,4 +111,52 @@ function elm_version_constraint_to_spec(ver_spec)
     return version_spec("$lo - $hi")
 end
 
+function reduce_graph(compat, target_uuids)
+    c = Dict{UUID,Dict{VersionNumber,Dict{UUID,VersionSpec}}}()
+    for u in target_uuids
+        add_package_recursive!(c, compat, u)
+    end
+    return c
+end
+
+function add_package_recursive!(c, compat, uuid)
+    if !(uuid in keys(c))
+        c[uuid] = compat[uuid]
+        dep_uuids = []
+        for (ver, specs) in compat[uuid]
+            for (dep_uuid, _) in specs
+                if !(dep_uuid in dep_uuids)
+                    push!(dep_uuids, dep_uuid)
+                end
+            end
+        end
+        for dep_uuid in dep_uuids
+            add_package_recursive!(c, compat, dep_uuid)
+        end
+    end
+end
+
+function solve_elm(compat, uuid_to_name)
+    # Solve every version of every package
+    solutions = Dict{String,Dict{String,Dict{String,String}}}()
+    for (u, vers) in compat
+        name = uuid_to_name[u]
+        println("solving $name")
+        solutions[name] = Dict()
+        compat_reduced = Solver.reduce_graph(compat, [u])
+        for (ver, _) in vers
+            v = string(ver)
+            reqs = Dict(u => Solver.version_spec("$v - $v"))
+            g = Solver.graph(compat_reduced, uuid_to_name, reqs)
+            sol = Dict()
+            try
+                sol = Solver.solve(g)
+            catch err
+            end
+            solutions[name][v] = sol
+        end
+    end
+    return solutions
+end
+
 end
