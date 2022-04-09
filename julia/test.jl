@@ -1,4 +1,5 @@
 using Solver
+using JSON
 
 # Read graph
 compat, uuid_to_name = Solver.read_elm_graph("graph.json")
@@ -20,4 +21,8 @@ for (u, vers) in compat
         end
         solutions[name][v] = sol
     end
+end
+
+open("result-julia.json", "w") do f
+    JSON.print(f, solutions)
 end
