@@ -7,6 +7,7 @@ Benchmark different dependency resolver implementations using elm package univer
 This repository contains a benchmark example using the [elm package universe](https://package.elm-lang.org/). It compares different implementations of package resolver algorithms:
 1. PubGrub Rust: [pubgrub-rs](https://github.com/pubgrub-rs/pubgrub)
 2. PubGrub in Python: [mixology](https://github.com/sdispater/mixology)
+3. MaxSum in Julia's Pkg.jl: [Pkg.jl](https://github.com/JuliaLang/Pkg.jl/blob/master/src/Resolve/Resolve.jl)
 
 The benchmark resolves the dependencies of every version of every package in the elm package registry.
 
@@ -65,7 +66,15 @@ Run benchmark and write result to file (takes about 4 seconds):
     cargo run --release --example test > ../../result.yaml
     cd -
 
+## Run Julia benchmark
+
+Run benchmark (takes about 10 seconds):
+
+    julia --project=./julia julia/test.jl
+
 ## Compare results
+
+### Python vs. Rust
 
 Create file `result_rust.json` from `result.yaml`:
 
@@ -75,3 +84,10 @@ Check differences:
 
     diff result.json result_rust.json
 
+### Julia vs. Rust
+
+    pipenv run python compare_julia.py
+
+Check differences:
+
+    diff result_rust.json result-julia-final.json
