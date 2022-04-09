@@ -1,10 +1,9 @@
 using UUIDs
 using Pkg.Resolve
+using Solver
 
-include("solver.jl")
-
-version_spec = PackageSolver.version_spec
-VersionSpec = PackageSolver.VersionSpec
+version_spec = Solver.version_spec
+VersionSpec = Solver.VersionSpec
 
 a_uuid = UUIDs.uuid4()
 b_uuid = UUIDs.uuid4()
@@ -43,8 +42,9 @@ reqs = Dict{UUID,VersionSpec}(
 
 spec = version_spec("1.1.0 - 2.0.0, 5.6.7 - 8.*.*")
 
-g = PackageSolver.graph(compat, uuid_to_name, reqs)
+g = Solver.graph(compat, uuid_to_name, reqs)
 
 @time sol = resolve(g)
+@time sol = Solver.solve(g)
 
-PackageSolver.use_names(sol, uuid_to_name)
+sol

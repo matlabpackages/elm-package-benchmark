@@ -1,0 +1,4 @@
+name = "Solver"
+uuid = "1149c7a7-90b7-453f-a39f-30749f6011d4"
+authors = ["Patrick <patrsc@nubu.at>"]
+version = "0.1.0"

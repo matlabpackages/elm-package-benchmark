@@ -1,4 +1,4 @@
-module PackageSolver
+module Solver
 
 using UUIDs
 using Pkg
@@ -49,6 +49,11 @@ end
 function version_spec(string)
     ranges = split(string, ", ")
     return VersionSpec([range(r) for r in ranges])
+end
+
+function solve(g)
+    sol = resolve(g)
+    use_names(sol, g.data.uuid_to_name)
 end
 
 end

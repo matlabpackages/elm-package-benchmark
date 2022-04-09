@@ -1,0 +1,9 @@
+# This file is machine-generated - editing it directly is not advised
+
+julia_version = "1.7.1"
+manifest_format = "2.0"
+
+[[deps.Solver]]
+path = "Solver"
+uuid = "1149c7a7-90b7-453f-a39f-30749f6011d4"
+version = "0.1.0"
