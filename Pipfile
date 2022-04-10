@@ -8,6 +8,7 @@ requests = "*"
 aiohttp = "*"
 poetry-semver = "*"
 pyyaml = "*"
+toml = "*"
 
 [dev-packages]
 
