@@ -91,3 +91,10 @@ Check differences:
 Check differences:
 
     diff result_rust.json result-julia-final.json
+
+## Download Julia general registry
+
+Download:
+
+    git clone --depth=1 https://github.com/JuliaRegistries/General.git
+
