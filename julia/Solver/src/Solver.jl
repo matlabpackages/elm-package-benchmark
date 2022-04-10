@@ -159,4 +159,27 @@ function solve_elm(compat, uuid_to_name)
     return solutions
 end
 
+function julia_package(name, version)
+    return PackageSpec(name=name, version=Pkg.Versions.VersionSpec(version))
+end
+
+function julia_registry(path)
+    return Pkg.Registry.RegistryInstance(path)
+end
+
+function resolve_julia_deps(deps, registries)
+    preserve = Pkg.Types.PRESERVE_TIERED
+    temp_env = Pkg.Types.EnvCache(Pkg.Types.projectfile_path("."))
+    temp_io = devnull
+
+    pkgs = deepcopy(deps)
+    for pkg in pkgs
+        pkg.version = Pkg.Versions.VersionSpec(pkg.version)
+    end
+    Pkg.Types.registry_resolve!(registries, pkgs)
+    julia_version = VERSION
+    pkgs, _ = Pkg.Operations._resolve(temp_io, temp_env, registries, pkgs, preserve, julia_version)
+    return pkgs
+end
+
 end
