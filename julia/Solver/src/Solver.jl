@@ -187,10 +187,41 @@ function package_versions(registry::Pkg.Registry.RegistryInstance)
     for (uuid, entry) in registry.pkgs
         name = entry.name
         info = Pkg.Registry.init_package_info!(entry)
-        vers = [string(version) for (version, _) in info.version_info]
+        vers = []
+        for (version, _) in info.version_info
+            v = string(version)
+            if !(occursin("+", v) || occursin("-", v))
+                push!(vers, v)
+            end
+        end
         p[name] = vers
     end
     return p
+end
+
+function solve_julia(registry_path)
+    # Solve every version of every package
+    reg = julia_registry(registry_path)
+    pv = package_versions(reg)
+    registries = [reg]
+
+    solutions = Dict{String,Dict{String,Vector{PackageSpec}}}()
+    for (pkg, vers) in pv
+        solutions[pkg] = Dict()
+        for ver in vers
+            println("$pkg $ver")
+            deps = [julia_package(pkg, ver)]
+            solution = nothing
+            try
+                solution = resolve_julia_deps(deps, registries)
+            catch err
+                solution = []
+            end
+            # println(solution)
+            solutions[pkg][ver] = solution
+        end
+    end
+    return solutions
 end
 
 end
