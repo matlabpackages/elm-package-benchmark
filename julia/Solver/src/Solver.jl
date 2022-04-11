@@ -182,4 +182,15 @@ function resolve_julia_deps(deps, registries)
     return pkgs
 end
 
+function package_versions(registry::Pkg.Registry.RegistryInstance)
+    p = Dict{String, Vector{String}}()
+    for (uuid, entry) in registry.pkgs
+        name = entry.name
+        info = Pkg.Registry.init_package_info!(entry)
+        vers = [string(version) for (version, _) in info.version_info]
+        p[name] = vers
+    end
+    return p
+end
+
 end
