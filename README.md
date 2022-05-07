@@ -98,3 +98,6 @@ Download:
 
     git clone --depth=1 https://github.com/JuliaRegistries/General.git
 
+Solve all Julia packages in the Julia General registry:
+
+    time julia --project=./julia julia/test-julia.jl
