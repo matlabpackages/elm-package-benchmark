@@ -5,9 +5,14 @@ from use_mixology import PackageSource, VersionSolver, print_solution
 # https://github.com/dart-lang/pub/blob/master/doc/solver.md
 
 def main():
-    source = read_example('pubgrub_examples/no-conflicts.json')
+    run_example('pubgrub_examples/no-conflicts.json')
+    run_example('pubgrub_examples/avoid-conflict.json')
+
+def run_example(file):
+    source = read_example(file)
     solver = VersionSolver(source)
     result = solver.solve()
+    print(file)
     print_solution(solver, result)
 
 def read_example(file):
