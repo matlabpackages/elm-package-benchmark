@@ -7,6 +7,7 @@ from use_mixology import PackageSource, VersionSolver, print_solution
 def main():
     run_example('pubgrub_examples/no-conflicts.json')
     run_example('pubgrub_examples/avoid-conflict.json')
+    run_example('pubgrub_examples/conflict-resolution.json')
 
 def run_example(file):
     source = read_example(file)
