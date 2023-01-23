@@ -9,6 +9,7 @@ def main():
     run_example('pubgrub_examples/avoid-conflict.json')
     run_example('pubgrub_examples/conflict-resolution.json')
     run_example('pubgrub_examples/partial-satisfier.json')
+    run_example('pubgrub_examples/error-linear.json')
 
 def run_example(file):
     source = read_example(file)
