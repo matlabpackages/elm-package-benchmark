@@ -14,9 +14,14 @@ def main():
 def run_example(file):
     source = read_example(file)
     solver = VersionSolver(source)
-    result = solver.solve()
     print(file)
-    print_solution(solver, result)
+    try:
+        result = solver.solve()
+        print_solution(solver, result)
+    except Exception as e:
+        print('Failure:')
+        print(str(e))
+    print('-' * 80)
 
 def read_example(file):
     data = read_json(file)
