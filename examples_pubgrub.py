@@ -59,12 +59,15 @@ def parse_constraints(deps):
 
 def next_version(ver):
     major, minor, patch = ver.split('.')
-    if ver.count('*', 2): 
+    c = ver.count('*')
+    if c == 2: 
         return version(int(major) + 1, 0, 0)
-    elif ver.count('*', 1):
+    elif c == 1:
         return version(int(major), int(minor) + 1, 0)
-    else:
+    elif c == 0:
         return version(int(major), int(minor), int(patch) + 1)
+    else:
+        raise ValueError(f'next version of {ver} is not valid')
 
 def version(major, minor, patch):
     return f'{major}.{minor}.{patch}'
