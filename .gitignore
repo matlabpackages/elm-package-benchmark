@@ -7,3 +7,4 @@ result*.json
 result.yaml
 elm-solve-deps/
 General/
+elm-packages.json
