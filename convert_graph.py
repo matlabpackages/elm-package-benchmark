@@ -8,13 +8,21 @@ def main():
     packages = {}
 
     for name, versions in graph.items():
+        name = sanitize(name)
         packages[name] = {}
         for version, dependencies in versions.items():
             packages[name][version] = {}
             for dependency, constraint in dependencies.items():
-                packages[name][version][dependency] = version_spec(constraint)
+                dep = sanitize(dependency)
+                packages[name][version][dep] = version_spec(constraint)
 
     write_json(output_file, packages, indent=2, sort_keys=True)
+
+
+def sanitize(name):
+    if name[0].isdigit():
+        name = 'x_number_x_' + name
+    return name.replace('/','_').replace('-','_')
 
 
 def version_spec(constraint):
